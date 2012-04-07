@@ -1,0 +1,3 @@
+<p><b>Code:</b> [% url.code %]</br>
+<b>URL:</b> [% url.url %]</br>
+<b>Clicks:</b> [% url.clicks.size %]</p>

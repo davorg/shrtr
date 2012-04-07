@@ -1,0 +1,7 @@
+<html>
+  <head>
+  </head>
+  <body>
+      <iframe id="content-frame" frameborder="0" noresize="noresize" src="[% url.url %]" name="content-frame"></iframe>
+  </body>
+</html>

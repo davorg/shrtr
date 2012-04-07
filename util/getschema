@@ -1,0 +1,32 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+use 5.010;
+
+use FindBin qw[ $Bin ];
+use DBIx::Class::Schema::Loader qw[ make_schema_at ];
+
+make_schema_at(
+    'Shrtr::Schema',
+    {
+      components => ['InflateColumn::DateTime'],
+      debug => 1,
+      dump_directory => "$Bin/../Shrtr/lib",
+      moniker_map => \&moniker,
+      use_moose => 1,
+    },
+    [
+      'dbi:mysql:database=shrtr', 'shrtr', '5hr7r',
+    ],
+);
+
+sub moniker {
+  my $table = shift;
+
+  my $table_name = "$table";
+
+  $table_name =~ s/^shrtr_//;
+
+  return join '', map { ucfirst } split /_/, $table_name;
+}

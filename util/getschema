@@ -17,7 +17,7 @@ make_schema_at(
       use_moose => 1,
     },
     [
-      'dbi:mysql:database=shrtr', 'shrtr', '5hr7r',
+      'dbi:mysql:database=shrtr', 'shrtr', 'shorty',
     ],
 );
 

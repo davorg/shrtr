@@ -23,33 +23,49 @@ __PACKAGE__->table("url");
 
 =head1 ACCESSORS
 
+=head2 id
+
+  data_type: 'integer'
+  is_auto_increment: 1
+  is_nullable: 0
+
 =head2 code
 
-  data_type: 'char'
-  is_nullable: 0
-  size: 10
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 200
 
 =head2 url
 
   data_type: 'text'
   is_nullable: 1
 
-=head2 clicks
+=head2 ts
 
-  data_type: 'integer'
-  is_nullable: 1
+  data_type: 'timestamp'
+  datetime_undef_if_invalid: 1
+  default_value: current_timestamp
+  is_nullable: 0
 
 =cut
 
 __PACKAGE__->add_columns(
+  "id",
+  { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
   "code",
-  { data_type => "char", is_nullable => 0, size => 10 },
+  { data_type => "varchar", is_nullable => 1, size => 200 },
   "url",
   { data_type => "text", is_nullable => 1 },
-  "clicks",
-  { data_type => "integer", is_nullable => 1 },
+  "ts",
+  {
+    data_type => "timestamp",
+    datetime_undef_if_invalid => 1,
+    default_value => \"current_timestamp",
+    is_nullable => 0,
+  },
 );
-__PACKAGE__->set_primary_key("code");
+__PACKAGE__->set_primary_key("id");
+__PACKAGE__->add_unique_constraint("code", ["code"]);
 
 =head1 RELATIONS
 
@@ -64,13 +80,28 @@ Related object: L<Shrtr::Schema::Result::Click>
 __PACKAGE__->has_many(
   "clicks",
   "Shrtr::Schema::Result::Click",
-  { "foreign.code" => "self.code" },
+  { "foreign.url" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 user_urls
+
+Type: has_many
+
+Related object: L<Shrtr::Schema::Result::UserUrl>
+
+=cut
+
+__PACKAGE__->has_many(
+  "user_urls",
+  "Shrtr::Schema::Result::UserUrl",
+  { "foreign.url" => "self.id" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2012-04-07 18:07:23
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:l7R0kmpTDN1yZj4gR4dfWA
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2012-04-08 16:55:07
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:FoXnNJ92XRZorgk006qkXQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

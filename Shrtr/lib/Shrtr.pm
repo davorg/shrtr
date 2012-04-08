@@ -10,6 +10,10 @@ get '/' => sub {
     template 'index';
 };
 
+get '/register' => sub {
+    template 'register';
+};
+
 get qr{ /(\w+)\+ }x => sub {
     my ($code) = splat;
     
@@ -25,7 +29,12 @@ get qr{ /(\w+) }x => sub {
     my ($code) = splat;
     
     if (my $url = $url_rs->find({code => $code})) {
-        $url->add_to_clicks({});
+        my $req = request;
+        $url->add_to_clicks({
+	    user_agent => $req->user_agent,
+            referrer   => $req->referer,
+            ip_address => $req->remote_address,
+        });
         template 'frame', {
             url => $url,
         }, {

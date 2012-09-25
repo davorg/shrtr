@@ -1,0 +1,6 @@
+<p>Your URL has been saved.</p>
+<ul>
+  <li>Long URL: [% url.url %]</li>
+  <li>Short code: <a href="/[% url.code %]">[% url.code %]</a></li>
+  <li>Information: <a href="/[% url.code %]+">[% url.code %]</a></li>
+</ul>

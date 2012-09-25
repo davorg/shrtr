@@ -14,6 +14,21 @@ get '/register' => sub {
     template 'register';
 };
 
+get '/submit' => sub {
+    template 'submit';
+};
+
+post '/submit' => sub {
+    if (my $url = param('url') and my $code = param('code')) {
+        my $new_url = $url_rs->create({
+            url => $url,
+            code => $code,
+        });
+        
+        template 'saved', { url => $new_url };
+    }
+};
+
 get qr{ /(\w+)\+ }x => sub {
     my ($code) = splat;
     

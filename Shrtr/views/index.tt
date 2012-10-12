@@ -1,66 +1,34 @@
-<div id="page">
-  <div id="sidebar">
-    <ul id="sidebar-items">
-      <li>
-        <h3>Shortcuts</h3>
-        <ul class="links">
-          <li><a href="/register">Register as a user</a></li>
-          <li><a href="/login">Login</a></li>
-          <li><a href="/submit">Submit a URL</a></li>
-        </ul>
-      </li>
-          
-        <h3>More Details</h3>
-        <ul class="links">
-          <li><a href="/about">About Shrtr</a></li>
-          <li><a href="/about/team">About the Team</a></li>
-        </ul>
-      </li>
-          
-      <li>
-        <h3>Blogroll</h3>
 
-        <ul class="links">
-          <li><a href="">A blog</a></li>
-          <li><a href="">Another blog</a></li>
-        </ul>
-      </li>
-    </ul>
-  </div>
-
-  <div id="content">
     <div id="header">
       <h1>Shrtr</h1>
       <h2>URL shortening without the Googlejuice</h2>
     </div>
 
-        <div id="getting-started">
-          <h1>Getting started</h1>
-          <h2>Here&rsquo;s how to get started:</h2>
+    <div id="getting-started">
+      <h1>Getting started</h1>
+      <h2>Here&rsquo;s how to get started:</h2>
                     
-          <ol>          
-            <li>
-              <h2>Register as a user</h2>
+      <ol>          
+        <li>
+          <h2>Register as a user</h2>
 
-              <p>Only registered users can use Shrtr's URL shortening
-              service. You can <a href="/register">register here</a>.</p>
-            </li>
+          <p>Only registered users can use Shrtr's URL shortening
+          service. You can <a href="/register">register here</a>.</p>
+        </li>
 
-            <li>
-              <h2>Submit URLs</h2>
+        <li>
+          <h2>Submit URLs</h2>
 
-              <p>Once you're registered and logged in, you can
-              <a href="/submit">submit a URL</a>.</p>
-            </li>
+          <p>Once you're registered and logged in, you can
+          <a href="/submit">submit a URL</a>.</p>
+        </li>
 
-            <li>
-              <h2>Profit!</h2>
+        <li>
+          <h2>Profit!</h2>
 
-              <p>Or, more accurately, stop other people profiting from
-              you linking to them.</p>  
-            </li>
+          <p>Or, more accurately, stop other people profiting from
+          you linking to them.</p>  
+        </li>
 
-          </ol>
-        </div>
-      </div>
+      </ol>
     </div>

@@ -13,6 +13,14 @@ html, body {
   min-height: 100%;
 }
 
+#id {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 30px;
+  width: 100%; 
+}
+
 #content-frame {
   margin-top: 30px;
   width: 100%;
@@ -25,6 +33,7 @@ html, body {
     </style>
   </head>
   <body>
+      <div id="bar">Shrtr: [% url.url %]</div>
       <iframe id="content-frame" frameborder="0" noresize="noresize" src="[% url.url %]" name="content-frame"></iframe>
   </body>
 </html>

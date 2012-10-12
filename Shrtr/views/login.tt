@@ -1,0 +1,12 @@
+[% IF error -%]
+<p class="error">[% error %]</p>
+[% END -%]
+[% IF session.goto -%]
+<p>You need to be logged in to do that</p>
+[% END -%]
+<form method="POST" action="/login">
+<p>User: <input name="username" value="[% session.username %]" /><br />
+Password: <input type="password" name="pass" /><br />
+<input type="submit" value="Log in" />
+</form>
+

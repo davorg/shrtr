@@ -35,3 +35,7 @@ plugins:
       user: shrtr
       pass: shorty
 
+session: cookie
+session_cookie_key: "random test session key"
+
+logger: "console"

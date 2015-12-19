@@ -13,6 +13,9 @@ __PACKAGE__->load_namespaces;
 # Created by DBIx::Class::Schema::Loader v0.07010 @ 2012-02-04 17:50:02
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:KESU4R2n6WpBxU2jBrNouA
 
+our $VERSION = 0.001;
+__PACKAGE__->load_components(qw[Schema::Versioned]);
+__PACKAGE__->upgrade_directory('./db/sql');
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable(inline_constructor => 0);

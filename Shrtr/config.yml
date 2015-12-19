@@ -31,9 +31,7 @@ plugins:
   DBIC:
     shrtr:
       schema_class: Shrtr::Schema
-      dsn: dbi:mysql:database=shrtr
-      user: shrtr
-      pass: shorty
+      dsn: dbi:SQLite:database=shrtr.db
 
 session: cookie
 session_cookie_key: "random test session key"

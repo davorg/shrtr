@@ -1,0 +1,19 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use FindBin qw($Bin);
+use lib "$Bin/../Shrtr/lib";
+use Getopt::Long;
+use Shrtr::Schema;
+
+my $preversion;
+GetOptions('p|preversion:s' => \$preversion)
+  or die;
+
+my $sch = Shrtr::Schema->connect('dbi:SQLite:db=shrtr.db');
+
+my $sqldir = "$Bin/sql";
+my $version = $sch->schema_version;
+$sch->create_ddl_dir('SQLite', $version, $sqldir, $preversion);

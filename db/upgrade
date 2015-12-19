@@ -1,0 +1,18 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+use 5.010;
+
+use FindBin '$Bin';
+use lib "$Bin/../Shrtr/lib";
+use Shrtr::Schema;
+
+my $sch = Shrtr::Schema->connect('dbi:SQLite:db=shrtr.db');
+
+if ($sch->get_db_version) {
+  $sch->upgrade;
+} else {
+  $sch->deploy;
+}
+

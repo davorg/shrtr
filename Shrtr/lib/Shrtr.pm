@@ -1,7 +1,7 @@
 package Shrtr;
-use Dancer ':syntax';
-use Dancer::Plugin::DBIC;
-use Dancer::Plugin::Passphrase;
+use Dancer2;
+use Dancer2::Plugin::DBIC;
+use Dancer2::Plugin::Passphrase;
 
 our $VERSION = '0.1';
 
@@ -11,15 +11,17 @@ my $user_rs = schema->resultset('User');
 my %private = map { $_ => 1 } qw[/submit];
 
 hook before => sub {
-    if ($private{request->path_info} and ! session('user')) {
-        session 'goto' => request->path_info;
-        request->path_info('/login');
+    my $app = shift;
+    if ($private{request->path_info} and !session('user')) {
+        forward '/login', {
+            goto => request->path_info,
+        };
     }
 };
 
-hook before_template => sub {
-    my $params = shift;
-    $params->{user} = session('user');  
+hook before_template_render => sub {
+    my $tokens = shift;
+    $tokens->{user} = session('user');
 };
 
 get '/' => sub {
@@ -49,9 +51,7 @@ post '/register' => sub {
         return redirect '/register';
     }
     
-    if (my $user = $user_rs->single({
-        username => param('username'),
-    })) {
+    if (my $user = $user_rs->find({ username => param('username') })) {
         session 'error' => 'Username ' . $user->username .
             ' is already in use.';
         return redirect '/register';
@@ -60,7 +60,7 @@ post '/register' => sub {
     my $user = $user_rs->create({
         username => param('username'),
         email => param('email'),
-        password => passphrase(param('password'))->generate_hash,
+        password => passphrase(param('password'))->generate->rfc2307,
     });
     
     template 'registered', { user => $user };
@@ -69,7 +69,7 @@ post '/register' => sub {
 get '/login' => sub {
     my $error = session('error');
     session 'error' => undef;
-    template 'login', { error => $error };
+    template 'login', { goto => params->{goto}, error => $error };
 };
 
 post '/login' => sub {
@@ -80,9 +80,7 @@ post '/login' => sub {
         return redirect '/login';
     }
     
-    my $user = $user_rs->single({
-        username => params->{username},
-    });
+    my $user = $user_rs->find({ username => params->{username} });
     unless ($user) {
         session 'error' => 'Invalid username or password';
         return redirect '/login';
@@ -95,8 +93,7 @@ post '/login' => sub {
     
     session 'user' => $user->username;
     
-    if (my $goto = session('goto')) {
-        session 'goto' => undef;
+    if (my $goto = params->{goto}) {
         redirect $goto;
     } else {
         redirect '/';
@@ -131,10 +128,7 @@ get qr{ /(\w+)\+ }x => sub {
     my ($code) = splat;
     
     if (my $url = $url_rs->find({code => $code})) {
-    
-        template 'url', {
-            url  => $url,
-        };
+        template 'url', { url => $url };
     }
 };
 
@@ -144,7 +138,7 @@ get qr{ /(\w+) }x => sub {
     if (my $url = $url_rs->find({code => $code})) {
         my $req = request;
         $url->add_to_clicks({
-	    user_agent => $req->user_agent,
+            user_agent => $req->user_agent,
             referrer   => $req->referer,
             ip_address => $req->remote_address,
         });
@@ -152,8 +146,8 @@ get qr{ /(\w+) }x => sub {
             url => $url,
         }, {
             layout => undef,
-        }
-    };
+        };
+    }
 };
 
 true;

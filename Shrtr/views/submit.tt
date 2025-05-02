@@ -1,5 +1,31 @@
-<form method="POST">
-<p>Long URL: <input name="url" /><br />
-Short code: <input name="code" /><br />
-<input type="submit" value="Save" /></p>
-</form>
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h2 class="text-center mb-4">Submit a URL</h2>
+      <form method="POST" class="needs-validation" novalidate>
+        <div class="mb-3">
+          <label for="url" class="form-label">Long URL</label>
+          <input
+            type="text"
+            class="form-control"
+            id="url"
+            name="url"
+            placeholder="Enter the long URL"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="code" class="form-label">Short Code</label>
+          <input
+            type="text"
+            class="form-control"
+            id="code"
+            name="code"
+            placeholder="Enter a custom short code (optional)"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Save</button>
+      </form>
+    </div>
+  </div>
+</div>

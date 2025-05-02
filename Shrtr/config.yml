@@ -20,12 +20,19 @@ charset: "UTF-8"
 
 # template: "simple"
 
-template: "template_toolkit"
+template: template_toolkit
+session: Cookie
 engines:
-  template_toolkit:
-    encoding:  'utf8'
-    start_tag: '[%'
-    end_tag:   '%]'
+  template:
+    template_toolkit:
+      encoding:  'utf8'
+      start_tag: '[%'
+      end_tag:   '%]'
+  session:
+    Cookie:
+      secret_key:           your secret passphrase
+      default_duration:     604800
+      with_request_address: 0
 
 plugins:
   DBIC:
@@ -33,7 +40,5 @@ plugins:
       schema_class: Shrtr::Schema
       dsn: dbi:SQLite:database=shrtr.db
 
-session: cookie
-session_cookie_key: "random test session key"
 
 logger: "console"

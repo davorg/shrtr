@@ -110,7 +110,7 @@
 
     <footer class="bg-light text-center py-3 mt-4">
       <div class="container">
-        Powered by <a href="">Shrtr</a>
+        Powered by <a href="">[% appname %] v[% version %]</a>
       </div>
     </footer>
 

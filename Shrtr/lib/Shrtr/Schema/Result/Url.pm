@@ -107,6 +107,53 @@ __PACKAGE__->many_to_many(
   users => user_urls => 'user',
 );
 
+use DateTime;
+use DateTime::Format::ISO8601;
+
+sub clicks_by_date {
+    my $self = shift;
+
+    # Hash to store the count of clicks by date
+    my %clicks_by_date;
+
+    # Populate the hash with actual click data
+    foreach my $click ($self->clicks) {
+        my $date = $click->ts->ymd; # Truncate the datetime to just the date (YYYY-MM-DD)
+        $clicks_by_date{$date}++;
+    }
+
+    # Determine the range of dates
+    my $first_date = $self->first_click_date;
+    return {} unless $first_date; # Return an empty hash if there are no clicks
+
+    my $today = DateTime->now->ymd;
+
+    # Fill in missing dates with zero clicks
+    my $current_date = DateTime::Format::ISO8601->parse_datetime($first_date);
+    my $end_date = DateTime::Format::ISO8601->parse_datetime($today);
+
+    while ($current_date <= $end_date) {
+        my $date_str = $current_date->ymd;
+        $clicks_by_date{$date_str} //= 0; # Set to 0 if no clicks for this date
+        $current_date->add(days => 1);
+    }
+
+    return \%clicks_by_date;
+}
+
+sub first_click_date {
+    my $self = shift;
+
+    # Get the first click based on the timestamp
+    my $first_click = $self->clicks->search(
+        {},
+        { order_by => { -asc => 'ts' }, rows => 1 }
+    )->single;
+
+    # Return the date of the first click, or undef if no clicks exist
+    return $first_click ? $first_click->ts->ymd : undef;
+}
+
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;
 1;

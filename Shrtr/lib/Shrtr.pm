@@ -5,13 +5,12 @@ use Dancer2::Plugin::Passphrase;
 
 our $VERSION = '0.1';
 
-my $url_rs = schema->resultset('Url');
-my $user_rs = schema->resultset('User');
-
 my %private = map { $_ => 1 } qw[/submit];
 
 hook before => sub {
-    my $app = shift;
+    var url_rs  => schema->resultset('Url');
+    var user_rs => schema->resultset('User');
+
     if ($private{request->path_info} and !session('user')) {
         forward '/login', {
             goto => request->path_info,
@@ -22,10 +21,21 @@ hook before => sub {
 hook before_template_render => sub {
     my $tokens = shift;
     $tokens->{user} = session('user');
+    $tokens->{version} = $VERSION;
+    $tokens->{appname} = config->{appname};
 };
 
 get '/' => sub {
-    template 'index';
+    my $user = session('user');
+    if (defined $user) {
+        warn "Logged in as $user\n";
+        my $url_rs = var 'url_rs';
+        my @urls = $url_rs->all;
+        template 'urls', { urls => \@urls };
+    } else {
+        warn "Not logged in\n";
+        template 'index';
+    }
 };
 
 get '/register' => sub {
@@ -51,6 +61,8 @@ post '/register' => sub {
         return redirect '/register';
     }
     
+    my $user_rs = var 'user_rs';
+
     if (my $user = $user_rs->find({ username => param('username') })) {
         session 'error' => 'Username ' . $user->username .
             ' is already in use.';
@@ -80,6 +92,7 @@ post '/login' => sub {
         return redirect '/login';
     }
     
+    my $user_rs = var 'user_rs';
     my $user = $user_rs->find({ username => params->{username} });
     unless ($user) {
         session 'error' => 'Invalid username or password';
@@ -112,9 +125,11 @@ get '/submit' => sub {
 post '/submit' => sub {
     if (my $url = param('url') and my $code = param('code')) {
         unless ($url =~ m[^https?://]) {
-            $url = "http://$url";
+            $url = "https://$url";
         }
-        
+
+        my $url_rs = var 'url_rs';
+
         my $new_url = $url_rs->create({
             url => $url,
             code => $code,
@@ -122,6 +137,7 @@ post '/submit' => sub {
         
         my $user = session('user');
         if ($user) {
+            my $user_rs = var 'user_rs';
             my $user_obj = $user_rs->find({ username => $user });
             $new_url->add_to_users($user_obj);
         }
@@ -133,6 +149,8 @@ post '/submit' => sub {
 get qr{ /(\w+)\+ }x => sub {
     my ($code) = splat;
     
+    my $url_rs = var 'url_rs';
+
     if (my $url = $url_rs->find({code => $code})) {
         template 'url', { url => $url };
     }
@@ -140,7 +158,9 @@ get qr{ /(\w+)\+ }x => sub {
 
 get qr{ /(\w+) }x => sub {
     my ($code) = splat;
-    
+
+    my $url_rs = var 'url_rs';
+
     if (my $url = $url_rs->find({code => $code})) {
         my $req = request;
         $url->add_to_clicks({

@@ -1,6 +1,22 @@
-<p>Your URL has been saved.</p>
-<ul>
-  <li>Long URL: [% url.url %]</li>
-  <li>Short code: <a href="/[% url.code %]">[% url.code %]</a></li>
-  <li>Information: <a href="/[% url.code %]+">[% url.code %]</a></li>
-</ul>
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="alert alert-success text-center" role="alert">
+        Your URL has been saved successfully.
+      </div>
+      <ul class="list-group mt-3">
+        <li class="list-group-item">
+          <strong>Long URL:</strong> [% url.url %]
+        </li>
+        <li class="list-group-item">
+          <strong>Short code:</strong>
+          <a href="/[% url.code %]" class="link-primary">[% url.code %]</a>
+        </li>
+        <li class="list-group-item">
+          <strong>Information:</strong>
+          <a href="/[% url.code %]+" class="link-primary">[% url.code %]+</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

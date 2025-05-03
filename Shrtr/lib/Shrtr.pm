@@ -120,6 +120,12 @@ post '/submit' => sub {
             code => $code,
         });
         
+        my $user = session('user');
+        if ($user) {
+            my $user_obj = $user_rs->find({ username => $user });
+            $new_url->add_to_users($user_obj);
+        }
+
         template 'saved', { url => $new_url };
     }
 };

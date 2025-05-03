@@ -1,1 +1,12 @@
-<p>User [% user.username %] created successfully.</p>
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="alert alert-success text-center" role="alert">
+        User <strong>[% user.username %]</strong> created successfully.
+      </div>
+      <div class="text-center mt-3">
+        <a href="/login" class="btn btn-primary">Go to Login</a>
+      </div>
+    </div>
+  </div>
+</div>

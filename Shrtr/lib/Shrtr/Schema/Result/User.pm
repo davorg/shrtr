@@ -81,6 +81,9 @@ __PACKAGE__->has_many(
 # Created by DBIx::Class::Schema::Loader v0.07010 @ 2012-04-08 16:55:07
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:7SBEwAu9bk3x1S2vRK63Zg
 
+__PACKAGE__->many_to_many(
+  urls => user_urls => 'url',
+);
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;

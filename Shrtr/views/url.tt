@@ -1,3 +1,21 @@
-<p><b>Code:</b> <a href="/[% url.code %]">[% url.code %]</a></br>
-<b>URL:</b> [% url.url %]</br>
-<b>Clicks:</b> [% url.clicks.size %]</p>
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">URL Details</h5>
+          <p class="card-text">
+            <strong>Code:</strong> 
+            <a href="/[% url.code %]" class="link-primary">[% url.code %]</a>
+          </p>
+          <p class="card-text">
+            <strong>URL:</strong> [% url.url %]
+          </p>
+          <p class="card-text">
+            <strong>Clicks:</strong> [% url.clicks.size %]
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

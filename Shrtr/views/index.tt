@@ -1,34 +1,35 @@
+<div class="container mt-4">
+  <div class="text-center mb-5">
+    <h1 class="display-4">Shrtr</h1>
+    <p class="lead">URL shortening without the Googlejuice</p>
+  </div>
 
-    <div id="header">
-      <h1>Shrtr</h1>
-      <h2>URL shortening without the Googlejuice</h2>
-    </div>
-
-    <div id="getting-started">
-      <h1>Getting started</h1>
-      <h2>Here&rsquo;s how to get started:</h2>
-                    
-      <ol>          
-        <li>
-          <h2>Register as a user</h2>
-
-          <p>Only registered users can use Shrtr's URL shortening
-          service. You can <a href="/register">register here</a>.</p>
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h2 class="card-title">Getting Started</h2>
+      <p class="card-text">Here’s how to get started:</p>
+      <ol class="list-group list-group-numbered">
+        <li class="list-group-item">
+          <h3 class="h5">Register as a user</h3>
+          <p>
+            Only registered users can use Shrtr's URL shortening service. You can
+            <a href="/register" class="link-primary">register here</a>.
+          </p>
         </li>
-
-        <li>
-          <h2>Submit URLs</h2>
-
-          <p>Once you're registered and logged in, you can
-          <a href="/submit">submit a URL</a>.</p>
+        <li class="list-group-item">
+          <h3 class="h5">Submit URLs</h3>
+          <p>
+            Once you're registered and logged in, you can
+            <a href="/submit" class="link-primary">submit a URL</a>.
+          </p>
         </li>
-
-        <li>
-          <h2>Profit!</h2>
-
-          <p>Or, more accurately, stop other people profiting from
-          you linking to them.</p>  
+        <li class="list-group-item">
+          <h3 class="h5">Profit!</h3>
+          <p>
+            Or, more accurately, stop other people profiting from you linking to them.
+          </p>
         </li>
-
       </ol>
     </div>
+  </div>
+</div>

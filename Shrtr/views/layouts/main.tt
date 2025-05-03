@@ -110,7 +110,7 @@
 
     <footer class="bg-light text-center py-3 mt-4">
       <div class="container">
-        Powered by <a href="http://perldancer.org/">Dancer</a> [% dancer_version %]
+        Powered by <a href="">Shrtr</a>
       </div>
     </footer>
 

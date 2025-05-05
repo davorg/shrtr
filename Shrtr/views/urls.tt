@@ -1,0 +1,33 @@
+<div class="container mt-4">
+  <div class="text-center mb-5">
+    <h1 class="display-4">Shrtr</h1>
+    <p class="lead">URL shortening without the Googlejuice</p>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered">
+      <thead class="table-light">
+        <tr>
+          <th>Short Code</th>
+          <th>Long URL</th>
+          <th>Clicks</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        [% FOREACH url IN urls -%]
+        <tr>
+          <td>
+            <a href="/[% url.code %]" class="link-primary">[% url.code %]</a>
+          </td>
+          <td>[% url.url %]</td>
+          <td>[% url.clicks.size %]</td>
+          <td>
+            <a href="/[% url.code %]+" class="btn btn-sm btn-info">Details</a>
+          </td>
+        </tr>
+        [% END -%]
+      </tbody>
+    </table>
+  </div>
+</div>

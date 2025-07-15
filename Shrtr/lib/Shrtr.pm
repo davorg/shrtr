@@ -28,12 +28,12 @@ hook before_template_render => sub {
 get '/' => sub {
     my $user = session('user');
     if (defined $user) {
-        warn "Logged in as $user\n";
+        debug("Logged in as $user\n");
         my $url_rs = var 'url_rs';
         my @urls = $url_rs->all;
         template 'urls', { urls => \@urls };
     } else {
-        warn "Not logged in\n";
+        debug("Not logged in\n");
         template 'index';
     }
 };
@@ -175,5 +175,10 @@ get qr{ /(\w+) }x => sub {
         };
     }
 };
+
+sub debug {
+  return unless $ENV{SHRTR_DEBUG};
+  goto &CORE::warn;
+}
 
 true;

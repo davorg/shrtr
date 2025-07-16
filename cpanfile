@@ -4,6 +4,7 @@ requires "Dancer2::Plugin::Passphrase";
 requires "Dancer2::Session::Cookie";
 requires "DateTime";
 requires "DateTime::Format::ISO8601";
+requires "DateTime::Format::SQLite";
 requires "Moose";
 requires "MooseX::NonMoose";
 requires "namespace::autoclean";

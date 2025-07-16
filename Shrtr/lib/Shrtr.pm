@@ -3,7 +3,7 @@ use Dancer2;
 use Dancer2::Plugin::DBIC;
 use Dancer2::Plugin::Passphrase;
 
-our $VERSION = '0.0.2';
+our $VERSION = '0.0.3';
 
 my %private = map { $_ => 1 } qw[/submit];
 
@@ -28,12 +28,12 @@ hook before_template_render => sub {
 get '/' => sub {
   my $user = session('user');
   if (defined $user) {
-    debug("Logged in as $user\n");
+    db("Logged in as $user\n");
     my $url_rs = var 'url_rs';
     my @urls = $url_rs->all;
     template 'urls', { urls => \@urls };
   } else {
-    debug("Not logged in\n");
+    db("Not logged in\n");
     template 'index';
   }
 };
@@ -176,7 +176,7 @@ get qr{ /(\w+) }x => sub {
   }
 };
 
-sub debug {
+sub db {
   return unless $ENV{SHRTR_DEBUG};
   goto &CORE::warn;
 }

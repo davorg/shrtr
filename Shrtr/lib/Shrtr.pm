@@ -3,7 +3,7 @@ use Dancer2;
 use Dancer2::Plugin::DBIC;
 use Dancer2::Plugin::Passphrase;
 
-our $VERSION = '0.1';
+our $VERSION = '0.0.2';
 
 my %private = map { $_ => 1 } qw[/submit];
 
